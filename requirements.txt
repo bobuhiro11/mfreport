@@ -3,3 +3,5 @@ pandas
 webdriver-manager
 reportlab
 matplotlib
+beautifulsoup4
+lxml
