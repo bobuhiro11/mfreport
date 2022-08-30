@@ -27,6 +27,8 @@ def hline():
 
 
 def main():
+    pd.options.display.precision = 0
+
     logger.info("mfreport started.")
     p = get_params()
 
