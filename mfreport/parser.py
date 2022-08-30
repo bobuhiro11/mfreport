@@ -1,4 +1,5 @@
 import re
+from collections import defaultdict
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -28,7 +29,7 @@ class Parser:
         id = "portfolio_det_eq"
         tr_list = soup.find(id=id).find("table").find("tbody").find_all("tr")
 
-        m = {}
+        m = defaultdict(lambda: [0] * 3)
         for tr in tr_list:
             d = tr.find_all("td")
 
@@ -38,7 +39,9 @@ class Parser:
             price = get_int(d[5])
             profit = get_int(d[7])
 
-            m[ticker] = [units, price, profit]
+            m[ticker][0] += units
+            m[ticker][1] += price
+            m[ticker][2] += profit
 
         df = pd.DataFrame.from_dict(
             m,
