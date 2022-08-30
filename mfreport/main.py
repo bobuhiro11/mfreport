@@ -1,6 +1,7 @@
 import argparse
 
 from mfreport.client import Client
+from mfreport.parser import Parser
 
 
 def get_params():
@@ -18,7 +19,9 @@ def msg():
 def main():
     p = get_params()
     c = Client(p.user, p.password, p.otp)
-    print(c.get_html())
+    html = c.get_html()
+    df = Parser(html).get_stock()
+    print(df)
 
 
 if __name__ == "__main__":
