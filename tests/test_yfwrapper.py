@@ -1,11 +1,14 @@
 import unittest
 
+import pandas as pd
+
 from mfreport.yfwrapper import Yfwrapper
 
 
 class TestYfwrapper(unittest.TestCase):
     def test_init(self):
-        df = Yfwrapper(["9984.T", "V"]).get_info()
+        units = pd.Series(data=[1, 1], index=["9984.T", "V"])
+        df = Yfwrapper(units).get_info()
 
         self.assertEqual("Visa Inc.", df.at["V", "shortName"])
         self.assertGreater(df.at["V", "divTotal"], 100.0)
