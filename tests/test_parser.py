@@ -48,5 +48,5 @@ class TestParse(unittest.TestCase):
     def test_parse(self):
         p = Parser(HTML)
         df = p.get_stock()
-        self.assertEqual(12, df.at["1111.T", "unit_cost"])
-        self.assertEqual(44444, df.at["1111.T", "sum_price"])
+        self.assertEqual(1, df.at["1111.T", "units"])
+        self.assertEqual(44444, df.at["1111.T", "price"])

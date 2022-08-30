@@ -1,3 +1,5 @@
+import os
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
@@ -23,6 +25,10 @@ class Client:
         self.otp = otp
 
     def get_html(self):
+        if os.path.exists("mf_portfolio.html"):
+            with open("mf_portfolio.html") as f:
+                return f.read()
+
         b = webdriver.Chrome(ChromeDriverManager().install())
         b.implicitly_wait(3)
         b.get(URL)
@@ -41,5 +47,8 @@ class Client:
         b.find_element(By.XPATH, XPATH_PORTFILIO_BTN).click()
 
         html = b.find_element(By.XPATH, "//*").get_attribute("outerHTML")
+
+        with open("mf_portfolio.html", mode="w") as f:
+            f.write(html)
 
         return html

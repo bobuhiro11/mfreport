@@ -1,3 +1,4 @@
+import os
 from collections import defaultdict
 from datetime import datetime
 
@@ -6,27 +7,32 @@ import yfinance as yf
 
 
 class Yfwrapper:
-    def __init__(self, symbols):
-        self.symbols = symbols
+    def __init__(self, units):
+        self.units = units
 
     def get_info(self):
+        if os.path.exists("yf.pkl"):
+            return pd.read_pickle("yf.pkl")
+
+        symbols = self.units.keys().tolist()
         usdjpy = yf.Ticker("JPY=X").info["bid"]
         last_year = str(datetime.now().year - 1)
         m = defaultdict(lambda: [])
 
-        for symbol in self.symbols:
+        for symbol in symbols:
+            units = self.units[symbol]
             ticker = yf.Ticker(symbol)
             info = ticker.info
             divs = ticker.dividends.filter(regex="^" + last_year)
             toJpy = usdjpy if info["currency"] == "USD" else 1.0
 
             m[symbol].append(info["shortName"])
-            m[symbol].append(divs.sum() * toJpy)
+            m[symbol].append(divs.sum() * toJpy * units)
 
             divs_per_month = [0.0] * 12
             for k, v in divs.items():
                 i = k.month - 1
-                divs_per_month[i] = float(v) * toJpy
+                divs_per_month[i] = float(v) * toJpy * units
 
             m[symbol].extend(divs_per_month)
 
@@ -39,5 +45,7 @@ class Yfwrapper:
             orient="index",
             columns=columns,
         )
+
+        df.to_pickle("yf.pkl")
 
         return df

@@ -31,23 +31,22 @@ class Parser:
         m = {}
         for tr in tr_list:
             d = tr.find_all("td")
-            r = [
-                get_int(d[2]),
-                get_int(d[3]),
-                get_int(d[4]),
-                get_int(d[5]),
-            ]
+
             ticker = get_ticker(d[0])
-            m[ticker] = r
+
+            units = get_int(d[2])
+            price = get_int(d[5])
+            profit = get_int(d[7])
+
+            m[ticker] = [units, price, profit]
 
         df = pd.DataFrame.from_dict(
             m,
             orient="index",
             columns=[
                 "units",
-                "unit_cost",
-                "unit_price",
-                "sum_price",
+                "price",
+                "profit",
             ],
         )
 
