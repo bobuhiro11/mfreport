@@ -1,7 +1,8 @@
-from datetime import datetime
-import yfinance as yf
-import pandas as pd
 from collections import defaultdict
+from datetime import datetime
+
+import pandas as pd
+import yfinance as yf
 
 
 class Yfwrapper:
