@@ -1,6 +1,6 @@
 import unittest
-from mfreport.parser import Parser
 
+from mfreport.parser import Parser
 
 HTML = """
 <div id="portfolio_det_eq">

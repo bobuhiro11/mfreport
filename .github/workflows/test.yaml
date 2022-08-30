@@ -16,7 +16,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          pip install flake8 pytest build black
+          pip install flake8 pytest build black isort
           pip install -r requirements.txt
       - name: Lint with flake8
         run: |
@@ -24,6 +24,9 @@ jobs:
       - name: Lint with black
         run: |
           black --check .
+      - name: Lint with isort
+        run: |
+          isort --check .
       - name: Test with pytest
         run: |
           pytest

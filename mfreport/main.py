@@ -1,5 +1,6 @@
-from mfreport.client import Client
 import argparse
+
+from mfreport.client import Client
 
 
 def get_params():

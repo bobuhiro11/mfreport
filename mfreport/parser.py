@@ -1,6 +1,7 @@
-from bs4 import BeautifulSoup
 import re
+
 import pandas as pd
+from bs4 import BeautifulSoup
 
 
 def get_float(td):
