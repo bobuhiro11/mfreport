@@ -6,3 +6,4 @@ matplotlib
 beautifulsoup4
 lxml
 yfinance
+plotext
