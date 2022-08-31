@@ -6,6 +6,34 @@ import pandas as pd
 import yfinance as yf
 
 
+def getShortName(info):
+    s = info["shortName"]
+    keywords = [
+        ", Inc.",
+        " CO LTD",
+        " Inc.",
+        ", Series 1",
+        " CORPORATION",
+        " CORP.",
+        " CORP",
+        " INC",
+        " FUND",
+        " HOLDINGS",
+        " HLDS",
+        " Limited",
+        " (The)",
+        " CO",
+        " S&",
+        " CHAIN",
+        " Corporation",
+    ]
+
+    for k in keywords:
+        s = s.replace(k, "")
+
+    return s
+
+
 class Yfwrapper:
     def __init__(self, units):
         self.units = units
@@ -26,7 +54,7 @@ class Yfwrapper:
             divs = ticker.dividends.filter(regex="^" + last_year)
             toJpy = usdjpy if info["currency"] == "USD" else 1.0
 
-            m[symbol].append(info["shortName"])
+            m[symbol].append(getShortName(info))
             m[symbol].append(divs.sum() * toJpy * units)
 
             divs_per_month = [0.0] * 12
