@@ -1,11 +1,11 @@
 import argparse
-import shutil
 
 import pandas as pd
 
 from mfreport.client import Client
 from mfreport.logger import logger
 from mfreport.parser import Parser
+from mfreport.writer import Writer
 from mfreport.yfwrapper import Yfwrapper
 
 
@@ -19,11 +19,6 @@ def get_params():
 
 def msg():
     return "Hello, world!"
-
-
-def hline():
-    width = shutil.get_terminal_size().columns
-    print("\u2500" * width)
 
 
 def main():
@@ -42,21 +37,7 @@ def main():
     logger.info("Done.")
 
     df = pd.merge(df1, df2, left_index=True, right_index=True)
-    df3 = df.filter(regex="^div", axis=1).drop(["divTotal"], axis=1).sum()
-    gain = df["profit"].sum()
-    annual_div = int(df["divTotal"].sum())
-
-    hline()
-    print(df)
-
-    hline()
-    print("Total unrealized capital gain is {:,d} yen.".format(gain))
-    print("Total annual dividend is {:,d} yen.".format(annual_div))
-
-    for k, v in df3.items():
-        print(" * {:7,d} yen in {}.".format(int(v), k.replace("div", "")))
-
-    hline()
+    Writer(df).write()
 
     logger.info("mfreport finished.")
 
