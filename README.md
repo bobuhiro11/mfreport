@@ -4,3 +4,4 @@
 [![License](https://img.shields.io/github/license/bobuhiro11/mfreport.svg)](https://github.com/bobuhiro11/mfreport/blob/main/LICENSE)
 [![PyPI version](https://badge.fury.io/py/mfreport.svg)](https://badge.fury.io/py/mfreport)
 [![Python Versions](https://img.shields.io/pypi/pyversions/mfreport.svg?logo=python&logoColor=white)](https://pypi.org/project/mfreport)
+[![codecov](https://codecov.io/gh/bobuhiro11/mfreport/branch/main/graph/badge.svg)](https://codecov.io/gh/bobuhiro11/mfreport)
