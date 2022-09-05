@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from selenium import webdriver
@@ -63,10 +64,13 @@ class Client:
         self.user = user
         self.password = password
         self.otp = otp
+        self.cache_name = "mf_portfolio_{}.html".format(
+            datetime.date.today().strftime("%Y%m%d")
+        )
 
     def get_html(self):
-        if os.path.exists("mf_portfolio.html"):
-            with open("mf_portfolio.html") as f:
+        if os.path.exists(self.cache_name):
+            with open(self.cache_name) as f:
                 return f.read()
 
         b = webdriver.Chrome(ChromeDriverManager().install())
@@ -88,7 +92,7 @@ class Client:
 
         html = b.find_element(By.XPATH, "//*").get_attribute("outerHTML")
 
-        with open("mf_portfolio.html", mode="w") as f:
+        with open(self.cache_name, mode="w") as f:
             f.write(html)
 
         return html

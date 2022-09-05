@@ -4,6 +4,7 @@ from datetime import datetime
 
 import pandas as pd
 import yfinance as yf
+from pandas.util import hash_pandas_object
 
 
 def getShortName(info):
@@ -37,10 +38,11 @@ def getShortName(info):
 class Yfwrapper:
     def __init__(self, units):
         self.units = units
+        self.cache_name = "yf_{}.pkl".format(hash_pandas_object(units).sum())
 
     def get_info(self):
-        if os.path.exists("yf.pkl"):
-            return pd.read_pickle("yf.pkl")
+        if os.path.exists(self.cache_name):
+            return pd.read_pickle(self.cache_name)
 
         symbols = self.units.keys().tolist()
         usdjpy = yf.Ticker("JPY=X").info["bid"]
@@ -74,6 +76,6 @@ class Yfwrapper:
             columns=columns,
         )
 
-        df.to_pickle("yf.pkl")
+        df.to_pickle(self.cache_name)
 
         return df
