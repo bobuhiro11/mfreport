@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # cache
-mf_portfolio.html
-yf.pkl
+*.html
+*.pkl
