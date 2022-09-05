@@ -18,6 +18,46 @@ XPATH_PORTFILIO_BTN = "/html/body/div[1]/div[1]/div[1]/header/div[2]/ul/li[4]/a"
 # fmt: on
 
 
+example_html = """
+<div id="portfolio_det_eq">
+    <table>
+        <tbody>
+            <tr>
+                <td>IBM</td><!-- ticker -->
+                <td></td>
+                <td>30</td><!-- units -->
+                <td></td>
+                <td></td>
+                <td>1,080,000円</td><!-- price -->
+                <td><span></span></td>
+                <td><span>222,222円</span></td><!-- profit -->
+                <td><span></span></td>
+                <td></td>
+                <td></td>
+                <td"></td>
+                <td"></td>
+            </tr>
+            <tr>
+                <td>7203</td><!-- ticker -->
+                <td></td>
+                <td>50</td><!-- units -->
+                <td></td>
+                <td></td>
+                <td>100,000円</td><!-- price -->
+                <td><span></span></td>
+                <td><span>11,111円</span></td><!-- profit -->
+                <td><span></span></td>
+                <td></td>
+                <td></td>
+                <td"></td>
+                <td"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+"""  # noqa: E501
+
+
 class Client:
     def __init__(self, user, password, otp):
         self.user = user
