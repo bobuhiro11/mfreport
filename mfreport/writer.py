@@ -18,7 +18,7 @@ class Writer:
 
         hline()  # ------------------
         gain = self.df["profit"].sum()
-        print("Total unrealized capital gain is {:,d} yen.".format(gain))
+        print("Total unrealized capital gain is {:,d} JPY.".format(gain))
 
         hline()  # ------------------
         df_divs = self.df.filter(regex="^div", axis=1)
@@ -35,7 +35,7 @@ class Writer:
         annual_div = int(self.df["divTotal"].sum())
 
         plt.plotsize(shutil.get_terminal_size().columns / 2, 20)
-        t = "Monthly dividends (total annual dividend is {:,d} yen)"
+        t = "Monthly dividends (total annual dividend is {:,d} JPY)"
         plt.title(t.format(annual_div))
         plt.bar(keys, vals, orientation="h", width=0.3)
         plt.show()
