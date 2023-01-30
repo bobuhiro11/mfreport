@@ -53,8 +53,9 @@ class Yfwrapper:
             units = self.units[symbol]
             ticker = yf.Ticker(symbol)
             info = ticker.info
+            fast_info = ticker.fast_info
             divs = ticker.dividends.filter(regex="^" + last_year)
-            toJpy = usdjpy if info["currency"] == "USD" else 1.0
+            toJpy = usdjpy if fast_info["currency"] == "USD" else 1.0
 
             m[symbol].append(getShortName(info))
             m[symbol].append(divs.sum() * toJpy * units)
